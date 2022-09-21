@@ -1,0 +1,541 @@
+Using config file data/ABM_usecase5_2D.xml ... 
+1
+dc? 1
+User parameters in XML config file: 
+Bool parameters:: 
+
+Int parameters:: 
+random_seed: 0 [dimensionless]
+number_of_cells: 0 [none]
+
+Double parameters:: 
+
+String parameters:: 
+
+
+which boundaries?
+1 1 1 1 1 1
+
+Microenvironment summary: microenvironment: 
+
+Mesh information: 
+type: uniform Cartesian
+Domain: [-200,200] micron x [-200,200] micron x [-10,10] micron
+   resolution: dx = 20 micron
+   voxels: 400
+   voxel faces: 0
+   volume: 3.2e+06 cubic micron
+Densities: (2 total)
+   oxygen:
+     units: dimensionless
+     diffusion coefficient: 5 micron^2 / min
+     decay rate: 0 min^-1
+     diffusion length scale: 2.23607e+06 micron
+     initial condition: 0 dimensionless
+     boundary condition: 6022 dimensionless (enabled: true)
+   Chemoattractant:
+     units: dimensionless
+     diffusion coefficient: 5 micron^2 / min
+     decay rate: 0 min^-1
+     diffusion length scale: 2.23607e+06 micron
+     initial condition: 0 dimensionless
+     boundary condition: 0 dimensionless (enabled: false)
+
+Pre-processing type 0 named agent
+Processing agent ... 
+Note: setting cell definition to 2D based on microenvironment domain settings ... 
+  --------- attachment_elastic_constant = 0.01
+Cells of type agent use standard chemotaxis: 
+	 d_bias (before normalization) = 1 * grad(Chemoattractant)
+Signals: 
+=======
+0 : oxygen
+1 : Chemoattractant
+2 : intracellular oxygen
+3 : intracellular Chemoattractant
+4 : oxygen gradient
+5 : Chemoattractant gradient
+6 : pressure
+7 : volume
+8 : contact with agent
+9 : contact with live cell
+10 : contact with dead cell
+11 : contact with basement membrane
+12 : damage
+13 : dead
+14 : total attack time
+15 : time
+16 : custom:sample
+
+
+Behaviors: 
+=========
+0 : oxygen secretion
+1 : Chemoattractant secretion
+2 : oxygen secretion target
+3 : Chemoattractant secretion target
+4 : oxygen uptake
+5 : Chemoattractant uptake
+6 : oxygen export
+7 : Chemoattractant export
+8 : cycle entry
+9 : exit from cycle phase 1
+10 : exit from cycle phase 2
+11 : exit from cycle phase 3
+12 : exit from cycle phase 4
+13 : exit from cycle phase 5
+14 : apoptosis
+15 : necrosis
+16 : migration speed
+17 : migration bias
+18 : migration persistence time
+19 : chemotactic response to oxygen
+20 : chemotactic response to Chemoattractant
+21 : cell-cell adhesion
+22 : cell-cell adhesion elastic constant
+23 : adhesive affinity to agent
+24 : relative maximum adhesion distance
+25 : cell-cell repulsion
+26 : cell-BM adhesion
+27 : cell-BM repulsion
+28 : phagocytose dead cell
+29 : phagocytose agent
+30 : attack agent
+31 : fuse to agent
+32 : transform to agent
+33 : custom:sample
+
+
+0 :: type:0 name: agent
+	 cycle model: Live (code=5)
+		Phase 0: Live
+		Cycle transitions: 
+		-----------------
+		Live --> Live w mean duration 1388.89 min
+	 death models: 
+		0 : Apoptosis (code=100) with rate 5.31667e-05 1/min
+		death phase transitions: 
+		------------------------
+		Apoptotic --> Debris w mean duration 516 min
+		1 : Necrosis (code=101) with rate 0 1/min
+		death phase transitions: 
+		------------------------
+		Necrotic (swelling) --> Necrotic (lysed) w mean duration 1e-16 min
+		Necrotic (lysed) --> Debris w mean duration 86400 min
+	 key functions: 
+		 migration bias rule: true
+		 custom rule: false
+		 phenotype rule: false
+		 volume update function: true
+		 mechanics function: true
+		 contact function: false
+	motility (enabled: true in 2D)
+		speed: 0.1 micron/min
+		bias: 0.5 
+		persistence time: 1 min
+		chemotaxis (enabled: true)
+			along 1 * grad(Chemoattractant) 
+	mechanics:
+		cell_cell_adhesion_strength: 0.4
+		cell_cell_repulsion_strength: 10
+		rel max adhesion dist: 1.25
+		cell_BM_adhesion_strength: 4
+		cell_BM_repulsion_strength: 10
+		attachment_elastic_constant: 0.01
+		attachment_rate: 10
+		detachment_rate: 0
+	custom data: 
+		sample: 1 dimensionless
+	custom vector data: 
+			NOTE: custom vector data will eventually be merged with custom data
+
+
+------- setup_tissue(): Xmin,Xmax= -200, 200
+------- setup_tissue(): Ymin,Ymax= -200, 200
+Placing cells of type agent ... 
+
+Loading cells from CSV file ./data/cells_usecase5.csv ... 
+Creating agent (type=0) at -59.9999 -142.679 0 
+Creating agent (type=0) at -39.9999 -142.679 0 
+Creating agent (type=0) at 40.0002 -142.679 0 
+Creating agent (type=0) at 60.0002 -142.679 0 
+Creating agent (type=0) at -89.9999 -125.359 0 
+Creating agent (type=0) at -69.9999 -125.359 0 
+Creating agent (type=0) at -49.9999 -125.359 0 
+Creating agent (type=0) at -29.9999 -125.359 0 
+Creating agent (type=0) at 30.0001 -125.359 0 
+Creating agent (type=0) at 50.0002 -125.359 0 
+Creating agent (type=0) at 70.0002 -125.359 0 
+Creating agent (type=0) at 90.0002 -125.359 0 
+Creating agent (type=0) at -100 -108.038 0 
+Creating agent (type=0) at -79.9999 -108.038 0 
+Creating agent (type=0) at -59.9999 -108.038 0 
+Creating agent (type=0) at -39.9999 -108.038 0 
+Creating agent (type=0) at 40.0002 -108.038 0 
+Creating agent (type=0) at 60.0002 -108.038 0 
+Creating agent (type=0) at 80.0002 -108.038 0 
+Creating agent (type=0) at 100 -108.038 0 
+Creating agent (type=0) at -130 -90.7179 0 
+Creating agent (type=0) at -110 -90.7179 0 
+Creating agent (type=0) at -89.9999 -90.7179 0 
+Creating agent (type=0) at -69.9999 -90.7179 0 
+Creating agent (type=0) at -49.9999 -90.7179 0 
+Creating agent (type=0) at -29.9999 -90.7179 0 
+Creating agent (type=0) at 30.0001 -90.7179 0 
+Creating agent (type=0) at 50.0002 -90.7179 0 
+Creating agent (type=0) at 70.0002 -90.7179 0 
+Creating agent (type=0) at 90.0002 -90.7179 0 
+Creating agent (type=0) at 110 -90.7179 0 
+Creating agent (type=0) at 130 -90.7179 0 
+Creating agent (type=0) at -140 -73.3974 0 
+Creating agent (type=0) at -120 -73.3974 0 
+Creating agent (type=0) at -100 -73.3974 0 
+Creating agent (type=0) at -79.9999 -73.3974 0 
+Creating agent (type=0) at -59.9999 -73.3974 0 
+Creating agent (type=0) at -39.9999 -73.3974 0 
+Creating agent (type=0) at 40.0002 -73.3974 0 
+Creating agent (type=0) at 60.0002 -73.3974 0 
+Creating agent (type=0) at 80.0002 -73.3974 0 
+Creating agent (type=0) at 100 -73.3974 0 
+Creating agent (type=0) at 120 -73.3974 0 
+Creating agent (type=0) at 140 -73.3974 0 
+Creating agent (type=0) at -130 -56.0769 0 
+Creating agent (type=0) at -110 -56.0769 0 
+Creating agent (type=0) at -89.9999 -56.0769 0 
+Creating agent (type=0) at -69.9999 -56.0769 0 
+Creating agent (type=0) at -49.9999 -56.0769 0 
+Creating agent (type=0) at -29.9999 -56.0769 0 
+Creating agent (type=0) at 30.0001 -56.0769 0 
+Creating agent (type=0) at 50.0002 -56.0769 0 
+Creating agent (type=0) at 70.0002 -56.0769 0 
+Creating agent (type=0) at 90.0002 -56.0769 0 
+Creating agent (type=0) at 110 -56.0769 0 
+Creating agent (type=0) at 130 -56.0769 0 
+Creating agent (type=0) at -140 -38.7563 0 
+Creating agent (type=0) at -120 -38.7563 0 
+Creating agent (type=0) at -100 -38.7563 0 
+Creating agent (type=0) at -79.9999 -38.7563 0 
+Creating agent (type=0) at -59.9999 -38.7563 0 
+Creating agent (type=0) at -39.9999 -38.7563 0 
+Creating agent (type=0) at 40.0002 -38.7563 0 
+Creating agent (type=0) at 60.0002 -38.7563 0 
+Creating agent (type=0) at 80.0002 -38.7563 0 
+Creating agent (type=0) at 100 -38.7563 0 
+Creating agent (type=0) at 120 -38.7563 0 
+Creating agent (type=0) at 140 -38.7563 0 
+Creating agent (type=0) at -150 -21.4358 0 
+Creating agent (type=0) at -130 -21.4358 0 
+Creating agent (type=0) at -110 -21.4358 0 
+Creating agent (type=0) at -89.9999 -21.4358 0 
+Creating agent (type=0) at -69.9999 -21.4358 0 
+Creating agent (type=0) at -49.9999 -21.4358 0 
+Creating agent (type=0) at -29.9999 -21.4358 0 
+Creating agent (type=0) at 30.0001 -21.4358 0 
+Creating agent (type=0) at 50.0002 -21.4358 0 
+Creating agent (type=0) at 70.0002 -21.4358 0 
+Creating agent (type=0) at 90.0002 -21.4358 0 
+Creating agent (type=0) at 110 -21.4358 0 
+Creating agent (type=0) at 130 -21.4358 0 
+Creating agent (type=0) at 150 -21.4358 0 
+Creating agent (type=0) at -140 -4.11531 0 
+Creating agent (type=0) at -120 -4.11531 0 
+Creating agent (type=0) at -100 -4.11531 0 
+Creating agent (type=0) at -79.9999 -4.11531 0 
+Creating agent (type=0) at -59.9999 -4.11531 0 
+Creating agent (type=0) at -39.9999 -4.11531 0 
+Creating agent (type=0) at 40.0002 -4.11531 0 
+Creating agent (type=0) at 60.0002 -4.11531 0 
+Creating agent (type=0) at 80.0002 -4.11531 0 
+Creating agent (type=0) at 100 -4.11531 0 
+Creating agent (type=0) at 120 -4.11531 0 
+Creating agent (type=0) at 140 -4.11531 0 
+Creating agent (type=0) at -150 13.2052 0 
+Creating agent (type=0) at -130 13.2052 0 
+Creating agent (type=0) at -110 13.2052 0 
+Creating agent (type=0) at -89.9999 13.2052 0 
+Creating agent (type=0) at -69.9999 13.2052 0 
+Creating agent (type=0) at -49.9999 13.2052 0 
+Creating agent (type=0) at -29.9999 13.2052 0 
+Creating agent (type=0) at 30.0001 13.2052 0 
+Creating agent (type=0) at 50.0002 13.2052 0 
+Creating agent (type=0) at 70.0002 13.2052 0 
+Creating agent (type=0) at 90.0002 13.2052 0 
+Creating agent (type=0) at 110 13.2052 0 
+Creating agent (type=0) at 130 13.2052 0 
+Creating agent (type=0) at 150 13.2052 0 
+Creating agent (type=0) at -140 30.5257 0 
+Creating agent (type=0) at -120 30.5257 0 
+Creating agent (type=0) at -100 30.5257 0 
+Creating agent (type=0) at -79.9999 30.5257 0 
+Creating agent (type=0) at -59.9999 30.5257 0 
+Creating agent (type=0) at -39.9999 30.5257 0 
+Creating agent (type=0) at 40.0002 30.5257 0 
+Creating agent (type=0) at 60.0002 30.5257 0 
+Creating agent (type=0) at 80.0002 30.5257 0 
+Creating agent (type=0) at 100 30.5257 0 
+Creating agent (type=0) at 120 30.5257 0 
+Creating agent (type=0) at 140 30.5257 0 
+Creating agent (type=0) at -150 47.8463 0 
+Creating agent (type=0) at -130 47.8463 0 
+Creating agent (type=0) at -110 47.8463 0 
+Creating agent (type=0) at -89.9999 47.8463 0 
+Creating agent (type=0) at -69.9999 47.8463 0 
+Creating agent (type=0) at -49.9999 47.8463 0 
+Creating agent (type=0) at -29.9999 47.8463 0 
+Creating agent (type=0) at 30.0001 47.8463 0 
+Creating agent (type=0) at 50.0002 47.8463 0 
+Creating agent (type=0) at 70.0002 47.8463 0 
+Creating agent (type=0) at 90.0002 47.8463 0 
+Creating agent (type=0) at 110 47.8463 0 
+Creating agent (type=0) at 130 47.8463 0 
+Creating agent (type=0) at 150 47.8463 0 
+Creating agent (type=0) at -140 65.1668 0 
+Creating agent (type=0) at -120 65.1668 0 
+Creating agent (type=0) at -100 65.1668 0 
+Creating agent (type=0) at -79.9999 65.1668 0 
+Creating agent (type=0) at -59.9999 65.1668 0 
+Creating agent (type=0) at -39.9999 65.1668 0 
+Creating agent (type=0) at 40.0002 65.1668 0 
+Creating agent (type=0) at 60.0002 65.1668 0 
+Creating agent (type=0) at 80.0002 65.1668 0 
+Creating agent (type=0) at 100 65.1668 0 
+Creating agent (type=0) at 120 65.1668 0 
+Creating agent (type=0) at 140 65.1668 0 
+Creating agent (type=0) at -130 82.4873 0 
+Creating agent (type=0) at -110 82.4873 0 
+Creating agent (type=0) at -89.9999 82.4873 0 
+Creating agent (type=0) at -69.9999 82.4873 0 
+Creating agent (type=0) at -49.9999 82.4873 0 
+Creating agent (type=0) at -29.9999 82.4873 0 
+Creating agent (type=0) at 30.0001 82.4873 0 
+Creating agent (type=0) at 50.0002 82.4873 0 
+Creating agent (type=0) at 70.0002 82.4873 0 
+Creating agent (type=0) at 90.0002 82.4873 0 
+Creating agent (type=0) at 110 82.4873 0 
+Creating agent (type=0) at 130 82.4873 0 
+Creating agent (type=0) at -120 99.8078 0 
+Creating agent (type=0) at -100 99.8078 0 
+Creating agent (type=0) at -79.9999 99.8078 0 
+Creating agent (type=0) at -59.9999 99.8078 0 
+Creating agent (type=0) at -39.9999 99.8078 0 
+Creating agent (type=0) at 40.0002 99.8078 0 
+Creating agent (type=0) at 60.0002 99.8078 0 
+Creating agent (type=0) at 80.0002 99.8078 0 
+Creating agent (type=0) at 100 99.8078 0 
+Creating agent (type=0) at 120 99.8078 0 
+Creating agent (type=0) at -89.9999 117.128 0 
+Creating agent (type=0) at -69.9999 117.128 0 
+Creating agent (type=0) at -49.9999 117.128 0 
+Creating agent (type=0) at -29.9999 117.128 0 
+Creating agent (type=0) at 30.0001 117.128 0 
+Creating agent (type=0) at 50.0002 117.128 0 
+Creating agent (type=0) at 70.0002 117.128 0 
+Creating agent (type=0) at 90.0002 117.128 0 
+Creating agent (type=0) at -79.9999 134.449 0 
+Creating agent (type=0) at -59.9999 134.449 0 
+Creating agent (type=0) at -39.9999 134.449 0 
+Creating agent (type=0) at 40.0002 134.449 0 
+Creating agent (type=0) at 60.0002 134.449 0 
+Creating agent (type=0) at 80.0002 134.449 0 
+Creating agent (type=0) at -49.9999 151.769 0 
+Creating agent (type=0) at -29.9999 151.769 0 
+Creating agent (type=0) at 30.0001 151.769 0 
+Creating agent (type=0) at 50.0002 151.769 0 
+Using PhysiCell version 1.10.4
+	Please cite DOI: 10.1371/journal.pcbi.1005991
+	Project website: http://PhysiCell.MathCancer.org
+
+See ALL_CITATIONS.txt for this list.
+current simulated time: 0 min (max: 360 min)
+total agents: 186
+interval wall time: 0 days, 0 hours, 0 minutes, and 1.7e-05 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 2.5e-05 seconds 
+
+
+Using method diffusion_decay_solver__constant_coefficients_LOD_2D (2D LOD with Thomas Algorithm) ... 
+
+Warning and FYI: Very small vectors are normalized to 0 vector
+
+current simulated time: 10 min (max: 360 min)
+total agents: 188
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.072218 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 0.072247 seconds 
+
+current simulated time: 20 min (max: 360 min)
+total agents: 188
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.058352 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 0.130604 seconds 
+
+current simulated time: 30 min (max: 360 min)
+total agents: 189
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.057692 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 0.188299 seconds 
+
+current simulated time: 40 min (max: 360 min)
+total agents: 189
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.05748 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 0.245782 seconds 
+
+current simulated time: 50 min (max: 360 min)
+total agents: 193
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.057826 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 0.303611 seconds 
+
+current simulated time: 60 min (max: 360 min)
+total agents: 193
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.058471 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 0.362086 seconds 
+
+current simulated time: 70 min (max: 360 min)
+total agents: 196
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.058803 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 0.420893 seconds 
+
+current simulated time: 80 min (max: 360 min)
+total agents: 200
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.05934 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 0.480237 seconds 
+
+current simulated time: 90 min (max: 360 min)
+total agents: 200
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.059677 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 0.539918 seconds 
+
+current simulated time: 100 min (max: 360 min)
+total agents: 202
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.059767 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 0.599687 seconds 
+
+current simulated time: 110 min (max: 360 min)
+total agents: 204
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.060315 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 0.660006 seconds 
+
+current simulated time: 120 min (max: 360 min)
+total agents: 204
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.060334 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 0.720344 seconds 
+
+current simulated time: 130 min (max: 360 min)
+total agents: 205
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.060512 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 0.780859 seconds 
+
+current simulated time: 140 min (max: 360 min)
+total agents: 206
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.061045 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 0.841908 seconds 
+
+current simulated time: 150 min (max: 360 min)
+total agents: 206
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.061423 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 0.903335 seconds 
+
+current simulated time: 160 min (max: 360 min)
+total agents: 206
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.060929 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 0.964268 seconds 
+
+current simulated time: 170 min (max: 360 min)
+total agents: 208
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.06116 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 1.02543 seconds 
+
+current simulated time: 180 min (max: 360 min)
+total agents: 209
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.061784 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 1.08722 seconds 
+
+current simulated time: 190 min (max: 360 min)
+total agents: 212
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.061998 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 1.14922 seconds 
+
+current simulated time: 200 min (max: 360 min)
+total agents: 215
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.062534 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 1.21176 seconds 
+
+current simulated time: 210 min (max: 360 min)
+total agents: 216
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.062416 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 1.27418 seconds 
+
+current simulated time: 220 min (max: 360 min)
+total agents: 218
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.062741 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 1.33692 seconds 
+
+current simulated time: 230 min (max: 360 min)
+total agents: 220
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.06334 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 1.40027 seconds 
+
+current simulated time: 240 min (max: 360 min)
+total agents: 222
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.063643 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 1.46391 seconds 
+
+current simulated time: 250 min (max: 360 min)
+total agents: 225
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.064173 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 1.52809 seconds 
+
+current simulated time: 260 min (max: 360 min)
+total agents: 225
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.064435 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 1.59252 seconds 
+
+current simulated time: 270 min (max: 360 min)
+total agents: 227
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.064607 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 1.65714 seconds 
+
+current simulated time: 280 min (max: 360 min)
+total agents: 228
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.065054 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 1.72219 seconds 
+
+current simulated time: 290 min (max: 360 min)
+total agents: 232
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.065873 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 1.78807 seconds 
+
+current simulated time: 300 min (max: 360 min)
+total agents: 233
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.065999 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 1.85407 seconds 
+
+current simulated time: 310 min (max: 360 min)
+total agents: 235
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.06694 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 1.92101 seconds 
+
+current simulated time: 320 min (max: 360 min)
+total agents: 236
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.067842 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 1.98886 seconds 
+
+current simulated time: 330 min (max: 360 min)
+total agents: 236
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.06718 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 2.05605 seconds 
+
+current simulated time: 340 min (max: 360 min)
+total agents: 237
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.068089 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 2.12414 seconds 
+
+current simulated time: 350 min (max: 360 min)
+total agents: 239
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.067569 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 2.19171 seconds 
+
+current simulated time: 360 min (max: 360 min)
+total agents: 239
+interval wall time: 0 days, 0 hours, 0 minutes, and 0.067683 seconds 
+total wall time: 0 days, 0 hours, 0 minutes, and 2.2594 seconds 
+
+
+Total simulation runtime: 
+0 days, 0 hours, 0 minutes, and 2.26817 seconds 

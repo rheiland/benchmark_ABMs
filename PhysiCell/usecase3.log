@@ -1,0 +1,161 @@
+Using config file data/ABM_usecase3_2D.xml ... 
+1
+dc? 1
+User parameters in XML config file: 
+Bool parameters:: 
+
+Int parameters:: 
+random_seed: 0 [dimensionless]
+number_of_cells: 0 [none]
+
+Double parameters:: 
+
+String parameters:: 
+
+
+which boundaries?
+0 1 0 0 0 0
+
+Microenvironment summary: microenvironment: 
+
+Mesh information: 
+type: uniform Cartesian
+Domain: [-100,100] micron x [-100,100] micron x [-10,10] micron
+   resolution: dx = 20 micron
+   voxels: 100
+   voxel faces: 0
+   volume: 800000 cubic micron
+Densities: (1 total)
+   signal:
+     units: dimensionless
+     diffusion coefficient: 30 micron^2 / min
+     decay rate: 0 min^-1
+     diffusion length scale: 5.47723e+06 micron
+     initial condition: 0 dimensionless
+     boundary condition: 38 dimensionless (enabled: true)
+
+virtual_wall_at_domain_edge: enabled
+Pre-processing type 0 named agent
+Processing agent ... 
+Note: setting cell definition to 2D based on microenvironment domain settings ... 
+what?!?
+  --------- attachment_elastic_constant = 0.01
+Cells of type agent use standard chemotaxis: 
+	 d_bias (before normalization) = 1 * grad(signal)
+Warning: When processing the agent cell definition: 
+	Could not find cell type cancer for phagocytosis.
+	Ignoring this live phagocytosis rate!
+
+Warning: When processing the agent cell definition: 
+	Could not find cell type cancer for cell attack.
+	Ignoring this cell attack rate!
+
+Warning: When processing the agent cell definition: 
+	Could not find cell type cancer for cell fusion.
+	Ignoring this cell fusion rate!
+
+Warning: When processing the agent cell definition: 
+	Could not find cell type cancer for cell transformation.
+	Ignoring this cell transformation rate!
+
+Signals: 
+=======
+0 : signal
+1 : intracellular signal
+2 : signal gradient
+3 : pressure
+4 : volume
+5 : contact with agent
+6 : contact with live cell
+7 : contact with dead cell
+8 : contact with basement membrane
+9 : damage
+10 : dead
+11 : total attack time
+12 : time
+13 : custom:sample
+
+
+Behaviors: 
+=========
+0 : signal secretion
+1 : signal secretion target
+2 : signal uptake
+3 : signal export
+4 : cycle entry
+5 : exit from cycle phase 1
+6 : exit from cycle phase 2
+7 : exit from cycle phase 3
+8 : exit from cycle phase 4
+9 : exit from cycle phase 5
+10 : apoptosis
+11 : necrosis
+12 : migration speed
+13 : migration bias
+14 : migration persistence time
+15 : chemotactic response to signal
+16 : cell-cell adhesion
+17 : cell-cell adhesion elastic constant
+18 : adhesive affinity to agent
+19 : relative maximum adhesion distance
+20 : cell-cell repulsion
+21 : cell-BM adhesion
+22 : cell-BM repulsion
+23 : phagocytose dead cell
+24 : phagocytose agent
+25 : attack agent
+26 : fuse to agent
+27 : transform to agent
+28 : custom:sample
+
+
+0 :: type:0 name: agent
+	 cycle model: Live (code=5)
+		Phase 0: Live
+		Cycle transitions: 
+		-----------------
+		Live --> Live w mean duration inf min
+	 death models: 
+		0 : Apoptosis (code=100) with rate 5.31667e-05 1/min
+		death phase transitions: 
+		------------------------
+		Apoptotic --> Debris w mean duration 516 min
+		1 : Necrosis (code=101) with rate 0 1/min
+		death phase transitions: 
+		------------------------
+		Necrotic (swelling) --> Necrotic (lysed) w mean duration 1e-16 min
+		Necrotic (lysed) --> Debris w mean duration 86400 min
+	 key functions: 
+		 migration bias rule: true
+		 custom rule: false
+		 phenotype rule: false
+		 volume update function: true
+		 mechanics function: true
+		 contact function: false
+	motility (enabled: true in 2D)
+		speed: 1 micron/min
+		bias: 1 
+		persistence time: 1 min
+		chemotaxis (enabled: true)
+			along 1 * grad(signal) 
+	mechanics:
+		cell_cell_adhesion_strength: 0.4
+		cell_cell_repulsion_strength: 10
+		rel max adhesion dist: 1.25
+		cell_BM_adhesion_strength: 4
+		cell_BM_repulsion_strength: 10
+		attachment_elastic_constant: 0.01
+		attachment_rate: 10
+		detachment_rate: 0
+	custom data: 
+		sample: 1 dimensionless
+	custom vector data: 
+			NOTE: custom vector data will eventually be merged with custom data
+
+
+------- setup_tissue(): Xmin,Xmax= -100, 100
+------- setup_tissue(): Ymin,Ymax= -100, 100
+Placing cells of type agent ... 
+
+Loading cells from CSV file ./data/random_100cells.csv ... 
+Error: ./data/random_100cells.csv not found during cell loading. Quitting.

@@ -117,7 +117,7 @@ void create_cell_types( void )
 	   This is a good place to set custom functions. 
 	*/ 
 	
-	cell_defaults.functions.update_phenotype = phenotype_function; 
+	// cell_defaults.functions.update_phenotype = phenotype_function; 
 	// cell_defaults.functions.custom_cell_rule = custom_function; 
 	// cell_defaults.functions.contact_function = contact_function; 
 	
@@ -224,14 +224,23 @@ void setup_tissue( void )
 	// load cells from your CSV file (if enabled)
 	load_cells_from_pugixml(); 	
 
+    // for(int idx=0; idx < all_cells->size(); idx++)
+    // {
+    //     PhysiCell::Cell* pCell = (*all_cells)[idx];
+    //     std::cout << "setup_tissue():  fix motility_vector for cell " << idx<< std::endl;
+    //     pCell->phenotype.motility.motility_vector[0] = 1.0;
+    //     pCell->phenotype.motility.motility_vector[1] = 0.0;
+    //     pCell->phenotype.motility.motility_vector[2] = 0.0;
+    // }
     for(int idx=0; idx < all_cells->size(); idx++)
     {
         PhysiCell::Cell* pCell = (*all_cells)[idx];
-        std::cout << "setup_tissue():  fix motility_vector for cell " << idx<< std::endl;
-        pCell->phenotype.motility.motility_vector[0] = 1.0;
-        pCell->phenotype.motility.motility_vector[1] = 0.0;
-        pCell->phenotype.motility.motility_vector[2] = 0.0;
+        // std::cout << "setup_tissue():  fix motility_vector for cell " << idx<< std::endl;
+        pCell->phenotype.motility.migration_bias_direction[0] = 1.0;    // constrain motility to <1,0,0> direction
+        pCell->phenotype.motility.migration_bias_direction[1] = 0.0;
+        pCell->phenotype.motility.migration_bias_direction[2] = 0.0;
     }
+
 	
 	return; 
 }

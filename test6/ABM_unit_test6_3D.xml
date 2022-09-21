@@ -59,7 +59,7 @@
         <Dirichlet_boundary_condition units="particles/micron^3" enabled="True">6022</Dirichlet_boundary_condition>
         <Dirichlet_options>
           <boundary_value ID="xmin" enabled="False">6022</boundary_value>
-          <boundary_value ID="xmax" enabled="True">6022</boundary_value>
+          <boundary_value ID="xmax" enabled="False">6022</boundary_value>
           <boundary_value ID="ymin" enabled="False">6022</boundary_value>
           <boundary_value ID="ymax" enabled="False">6022</boundary_value>
           <boundary_value ID="zmin" enabled="False">6022</boundary_value>
@@ -160,15 +160,15 @@
               <enabled>true</enabled>
               <use_2D>false</use_2D>
               <chemotaxis>
-                <enabled>true</enabled>
+                <enabled>false</enabled>
                 <substrate>oxygen</substrate>
                 <direction>1</direction>
               </chemotaxis>
               <advanced_chemotaxis>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
                 <normalize_each_gradient>false</normalize_each_gradient>
                 <chemotactic_sensitivities>
-                  <chemotactic_sensitivity substrate="oxygen">0.01</chemotactic_sensitivity>
+                  <chemotactic_sensitivity substrate="oxygen">1</chemotactic_sensitivity>
                   </chemotactic_sensitivities>
                 </advanced_chemotaxis>
             </options>
