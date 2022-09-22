@@ -13,7 +13,7 @@
 	</domain>
 	
 	<overall>
-		<max_time units="min">360</max_time> 
+		<max_time units="min">5760</max_time> 
 		<time_units>min</time_units>
 		<space_units>micron</space_units>
 	
@@ -23,19 +23,19 @@
 	</overall>
 	
 	<parallel>
-		<omp_num_threads>1</omp_num_threads>
+		<omp_num_threads>4</omp_num_threads>
 	</parallel> 
 	
 	<save>
 		<folder>output_usecase1</folder>  
 
 		<full_data>
-			<interval units="min">10</interval>
+			<interval units="min">30</interval>
 			<enable>true</enable>
 		</full_data>
 		
 		<SVG>
-			<interval units="min">10</interval>
+			<interval units="min">30</interval>
 			<enable>true</enable>
 		</SVG>
 		
@@ -86,10 +86,10 @@
         <phenotype>
           <cycle code="6" name="Flow cytometry model (separated)">
             <phase_durations units="min">
-              <duration index="0" fixed_duration="true">7</duration>
-              <duration index="1" fixed_duration="true">6</duration>
-              <duration index="2" fixed_duration="true">3</duration>
-              <duration index="3" fixed_duration="true">2</duration>
+              <duration index="0" fixed_duration="true">420</duration>
+              <duration index="1" fixed_duration="true">360</duration>
+              <duration index="2" fixed_duration="true">180</duration>
+              <duration index="3" fixed_duration="true">120</duration>
             </phase_durations>
             </cycle>
 
