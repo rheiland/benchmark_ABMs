@@ -10,7 +10,7 @@ For now, clone/download the main branch of this repo; later we will probably pro
 We assume a modern g++ compiler will be available (which will be the case on the BSC cluster).
 For other platforms, rf. https://github.com/physicell-training/ws2022/tree/main/setup .
 
-Unit tests:
+Unit tests: (output files should be written to an appropriately named /output* directory)
 ```
 M1P~/git/benchmark_ABMs$ cd PhysiCell
 M1P~/git/benchmark_ABMs/PhysiCell$ make -j2
@@ -43,7 +43,7 @@ then from this same directory (optionally direct terminal output to a .log file)
 ./template data/ABM_unit_test8_3D.xml   # >unit_test8.log
 
 ```
-Use cases:
+Use cases:  (output files should be written to an appropriately named /output* directory)
 ```
 compile custom models:
 M1P~/git/benchmark_ABMs/PhysiCell$ cp ../usecase5/custom_modules/custom.cpp  custom_modules/.
