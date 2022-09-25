@@ -50,9 +50,17 @@ M1P~/git/benchmark_ABMs/PhysiCell$ cp ../usecase5/custom_modules/custom.cpp  cus
 M1P~/git/benchmark_ABMs/PhysiCell$ make 
 M1P~/git/benchmark_ABMs/PhysiCell$ mv project case5
 
+M1P~/git/benchmark_ABMs/PhysiCell$ make -f Make-monolayer
+
+M1P~/git/benchmark_ABMs/PhysiCell$ monolayer monolayer.xml  # > monolayer.log
 M1P~/git/benchmark_ABMs/PhysiCell$ template data/ABM_usecase1_3D.xml  # > usecase1.log
 M1P~/git/benchmark_ABMs/PhysiCell$ template data/ABM_usecase2_3D.xml  # > usecase2.log
 M1P~/git/benchmark_ABMs/PhysiCell$ template data/ABM_usecase3_2D.xml  # > usecase3.log
 M1P~/git/benchmark_ABMs/PhysiCell$ template data/ABM_usecase4_3D.xml  # > usecase4.log
 M1P~/git/benchmark_ABMs/PhysiCell$ case5 data/ABM_usecase5_2D.xml     # > usecase5.log
+```
+
+Analysis:
+```
+M1P~/git/benchmark_ABMs/analysis_scripts$ python analyze_monolayer.py
 ```
