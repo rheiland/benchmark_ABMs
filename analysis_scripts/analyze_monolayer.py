@@ -32,10 +32,15 @@ import matplotlib.pyplot as plt
 # print('frame, field = ',frame_idx, field_index)
 
 out_dir = "../PhysiCell/output_monolayer"
+out_dir = "../PhysiCell/output_monolayer_final"
 t=[]
 tumor_diam=[]
-# for idx in range(0,507, 5):
-for idx in [336, 386, 408, 481, 506]:
+
+fig, ax = plt.subplots()
+
+# ------- 1st plot all computed values (at every 10 hours)
+hr_delta = 20
+for idx in range(0,648, hr_delta):
     xml_file = "output%08d.xml" % idx
 
     # mcds = pyMCDS(xml_file, '../PhysiCell/output_usecase0')   # reads BOTH cells and substrates info
@@ -44,9 +49,9 @@ for idx in [336, 386, 408, 481, 506]:
     cells_x = mcds.data['discrete_cells']['position_x']
 
     current_time = mcds.get_time()
-    print('time (min)= ', current_time )
+    # print('time (min)= ', current_time )
     print('time (hr)= ', current_time/60. )
-    print('time (day)= ', current_time/1440. )
+    # print('time (day)= ', current_time/1440. )
     print("# cells= ",cells_x.shape[0])
     diam = cells_x.max() - cells_x.min()
     print("monolayer diam= ",diam)
@@ -56,13 +61,33 @@ for idx in [336, 386, 408, 481, 506]:
     # sub_intern.append(sintern)
     # sub_conc.append(sconc)
 
-fig, ax = plt.subplots()
-# ax.plot(t, sub_intern)
-ax.set(xlabel='t', ylabel='monolayer radius')
-# ax.title("cell's internal oxygen over time")
-# ax.plot(t, tumor_diam,'ko-')
-ax.plot(t, tumor_diam,'k.-')
-ax.set(xlabel='t (min)', ylabel='diameter')
+ax.plot(t, tumor_diam,'k-')
+
+t2 = []
+tumor_diam2 = []
+# ------- 2nd plot just the points from the table
+for idx in [336, 386, 408, 481, 506, 646]:   # times (hours) from the table
+    xml_file = "output%08d.xml" % idx
+
+    # mcds = pyMCDS(xml_file, '../PhysiCell/output_usecase0')   # reads BOTH cells and substrates info
+    mcds = pyMCDS(xml_file, out_dir)   # reads BOTH cells and substrates info
+    # cell_ids = mcds.data['discrete_cells']['ID']
+    cells_x = mcds.data['discrete_cells']['position_x']
+
+    current_time = mcds.get_time()
+    # print('time (min)= ', current_time )
+    print('time (hr)= ', current_time/60. )
+    # print('time (day)= ', current_time/1440. )
+    print("# cells= ",cells_x.shape[0])
+    diam = cells_x.max() - cells_x.min()
+    print("monolayer diam= ",diam)
+
+    t2.append(current_time/1440.)
+    tumor_diam2.append(diam)
+
+ax.plot(t2, tumor_diam2,'ko')
+
+ax.set(xlabel='t (day)', ylabel='diameter (micron)',title="monolayer growth")
 # ax.grid()
 # fig.savefig("test.png")
 plt.show()
