@@ -59,11 +59,18 @@ for idx in range(idx_min,idx_max):
     t.append(current_time)
     sub_intern.append(sintern)
     sub_conc.append(sconc)
+    if idx==0:
+        sintern_prev = sintern
+    else:
+        print("sintern_prev, sintern=",sintern_prev,sintern)
+        sintern_delta = sintern - sintern_prev
+        sintern_prev = sintern
 
+print("---- slope= ",sintern_delta/60.)
 fig, ax = plt.subplots()
 ax.plot(t, sub_intern)
-ax.set(xlabel='t', ylabel='internal oxygen')
-ax.set_title("cell's internal oxygen over time")
+ax.set(xlabel='t', ylabel='internal(0,0,0) concentration')
+ax.set_title(f"cell's internal oxygen: internal delta={sintern_delta:.2f}")
 #ax.plot(t, sub_conc)
 #ax.set(xlabel='t', ylabel='voxel(0,0,0) conc')
 # ax.grid()
