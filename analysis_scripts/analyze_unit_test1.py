@@ -62,7 +62,8 @@ for idx in range(idx_min,idx_max):
 
 fig, ax = plt.subplots()
 ax.plot(t, sub_intern)
-ax.set(xlabel='t', ylabel='internal')
+ax.set(xlabel='t', ylabel='internal oxygen')
+ax.set_title("cell's internal oxygen over time")
 #ax.plot(t, sub_conc)
 #ax.set(xlabel='t', ylabel='voxel(0,0,0) conc')
 # ax.grid()
