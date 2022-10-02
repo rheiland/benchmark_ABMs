@@ -67,6 +67,8 @@
 
 #include "./custom.h"
 
+double base_rate0,base_rate1,base_rate2,base_rate3;
+
 void create_cell_types( void )
 {
 	// set the random seed 
@@ -128,6 +130,7 @@ void create_cell_types( void )
 	*/
 		
 	display_cell_definitions( std::cout ); 
+
 	
 	return; 
 }
@@ -185,10 +188,21 @@ void setup_tissue( void )
 			pC->assign_position( position );
 		}
 	}
+
 	std::cout << std::endl; 
 	
 	// load cells from your CSV file (if enabled)
 	load_cells_from_pugixml(); 	
+
+    base_rate0 = (*all_cells)[0]->phenotype.cycle.data.exit_rate(0);
+    base_rate1 = (*all_cells)[0]->phenotype.cycle.data.exit_rate(1);
+    base_rate2 = (*all_cells)[0]->phenotype.cycle.data.exit_rate(2);
+    base_rate3 = (*all_cells)[0]->phenotype.cycle.data.exit_rate(3);
+    std::cout << "base_rate0= "<< base_rate0<< ", " << 1/base_rate0 << std::endl;
+    std::cout << "base_rate1= "<< base_rate1<< ", " << 1/base_rate1 << std::endl;
+    std::cout << "base_rate2= "<< base_rate2<< ", " << 1/base_rate2 << std::endl;
+    std::cout << "base_rate3= "<< base_rate3<< ", " << 1/base_rate3 << std::endl;
+    // exit(-1);
 	
 	return; 
 }
@@ -196,26 +210,104 @@ void setup_tissue( void )
 std::vector<std::string> my_coloring_function( Cell* pCell )
 { return paint_by_number_cell_coloring(pCell); }
 
+int counter = 0;
 void phenotype_function( Cell* pCell, Phenotype& phenotype, double dt )
-{ return; }
+{ 
+    // if (PhysiCell_globals.current_time > 5)
+    // {
+    // double rate = pCell->phenotype.cycle.data.exit_rate(0);
+    // // double rate = pCell->phenotype.cycle.data.transition_rate(0,1);
+    // std::cout << "cycle transition_rate(0)= "<< rate << ", " << 1/rate << std::endl;
+    // // rate = pCell->phenotype.cycle.data.transition_rate(1,2);
+    // rate = pCell->phenotype.cycle.data.exit_rate(1);
+    // std::cout << "cycle transition_rate(1)= "<< rate << ", " << 1/rate << std::endl;
+    // // rate = pCell->phenotype.cycle.data.transition_rate(2,3);
+    // rate = pCell->phenotype.cycle.data.exit_rate(2);
+    // std::cout << "cycle transition_rate(2)= "<< rate << ", " << 1/rate << std::endl;
+    // // rate = pCell->phenotype.cycle.data.transition_rate(3,0);
+    // rate = pCell->phenotype.cycle.data.exit_rate(3);
+    // std::cout << "cycle transition_rate(3)= "<< rate << ", " << 1/rate << std::endl;
+    // exit(-1);
+    // }
+
+        // for( auto pCell : *PhysiCell::all_cells )
+
+// Our logic will change depending on the cycle phases times we've chosen, e.g., fast:
+            //   <duration index="0" fixed_duration="true">42</duration>
+            //   <duration index="1" fixed_duration="true">36</duration>
+            //   <duration index="2" fixed_duration="true">18</duration>
+            //   <duration index="3" fixed_duration="true">12</duration>
+
+    // counter++;
+    // if ((PhysiCell_globals.current_time / 60.) < 1.0) 
+    // {
+    //     std::cout << "time=" << PhysiCell_globals.current_time << std::endl;
+    // }
+    // if ((counter % 10) == 0)
+    // {
+    //     std::cout << counter << ", t=" << PhysiCell_globals.current_time << std::endl;
+    // }
+
+    static double prob = 0.5;
+    double rnum = UniformRandom();
+    // double rate = pCell->phenotype.cycle.data.exit_rate(0);
+    // std::cout << PhysiCell_globals.current_time << ": cycle transition_rate(0)= "<< rate << ", " << 1/rate << std::endl;
+    // exit(-1);
+    // #pragma omp critical
+    // {
+    // pCell->phenotype.cycle.data.exit_rate(0) = base_rate0 * rnum;
+    // // pCell->phenotype.cycle.data.exit_rate(3) = base_rate3 * rnum;
+    // }
+
+    // if (rnum < 0.8)
+    if (rnum > 0.8)
+    {
+        pCell->phenotype.cycle.data.exit_rate(0) = 0.0000001;
+        // double rate = pCell->phenotype.cycle.data.exit_rate(0);
+        // std::cout << "cycle transition_rate(0)= "<< rate << ", " << 1/rate << std::endl;
+    }
+    // else if (rnum > 0.9)
+    // {
+    //     pCell->phenotype.cycle.data.exit_rate(0) = base_rate0 * rnum;
+    // }
+    else
+    {
+        float coef = 2.0;
+        coef = 5.0;
+        // #pragma omp parallel num_threads(MAX)
+        // #pragma omp critical
+        // #pragma omp barrier
+        // #pragma omp atomic
+        {
+
+        // pCell->phenotype.cycle.data.exit_rate(0) = base_rate0 * (coef+rnum);
+        pCell->phenotype.cycle.data.exit_rate(0) = base_rate0 * (coef*rnum);
+
+        // pCell->phenotype.cycle.data.exit_rate(0) = base_rate0;
+    //     // pCell->phenotype.cycle.data.exit_rate(0) = base_rate0 * rnum;
+        // pCell->phenotype.cycle.data.exit_rate(1) = base_rate1 * (coef+rnum);
+        pCell->phenotype.cycle.data.exit_rate(1) = base_rate1 * (coef*rnum);
+
+        // pCell->phenotype.cycle.data.exit_rate(2) = base_rate2 * (coef+rnum);
+        // pCell->phenotype.cycle.data.exit_rate(3) = base_rate3 * (coef+rnum);
+        }
+    //     // pCell->phenotype.cycle.data.exit_rate(2) = base_rate2 * rnum;
+    //     // pCell->phenotype.cycle.data.exit_rate(3) = base_rate3 * rnum;
+    }
+    return; 
+}
 
 void custom_function( Cell* pCell, Phenotype& phenotype , double dt )
 { 
-    // static int contact_start_index = find_signal_index( "pressure" + cell_definitions_by_type[0]->name ); 
-    // static int contact_start_index = find_signal_index( "pressure" + cell_definitions_by_type[0]->name ); 
-    double pressure = get_single_signal(pCell, "pressure");
-    // std::cout << "custom_function: t="<<PhysiCell_globals.current_time<<", ID= " << pCell->ID << ", pressure= " << pressure << std::endl;
-    // std::cout << "        pCell->phenotype.cycle.data.exit_rate( 0 ) = " << pCell->phenotype.cycle.data.exit_rate( 0 ) << std::endl;
-    // if (pressure > 3)
-    // if (pressure > 2)
-    if (pressure > 2.5)
-    {
-        pCell->phenotype.cycle.data.exit_rate( 0 ) = 0.0000001;
-    }
-    else
-    {
-        pCell->phenotype.cycle.data.exit_rate( 0 ) = 0.00238095;
-    }
+    // static double prob = 0.1;
+    // if (UniformRandom() < prob)
+    // {
+    //     // pCell->phenotype.cycle.data.exit_rate( 0 ) = 0.0000001;
+    //     // pCell->phenotype.cycle.data.exit_rate( 0 ) = 0.00238095 * UniformRandom();
+    //     // pCell->phenotype.cycle.data.exit_rate( 0 ) = 0.00238095 * UniformRandom() * 1000;
+    //     pCell->phenotype.cycle.data.exit_rate( 0 ) = 0.00238095 * UniformRandom() * 0.5;
+    // }
+
     return; 
 } 
 
