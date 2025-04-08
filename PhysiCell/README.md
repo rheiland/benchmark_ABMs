@@ -7,7 +7,7 @@
 
 ## Build, run, analyze each model:
 
-### the 2 cells coming in contact
+### 1) 2 cells coming in contact
 ```
 make load PROJ=cells2_push
 make
@@ -17,7 +17,7 @@ python beta/plot_t_dist.py
 * the Python script generates "pc_plot_t_dist.csv" and also displays a plot (but the title is hardcoded for the params, so may not reflect the actual params if you modify the .xml)
 * rename the `output` directory if you want to prevent it from being overwritten by the other model!
 
-### the monolayer
+### 2) monolayer
 ```
 make load PROJ=monolayer
 make
