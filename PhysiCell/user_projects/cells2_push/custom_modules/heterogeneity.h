@@ -71,23 +71,16 @@
 using namespace BioFVM; 
 using namespace PhysiCell;
 
-// setup functions to help us along 
+// custom cell phenotype function to scale immunostimulatory factor with hypoxia 
+void tumor_cell_phenotype_with_oncoprotein( Cell* pCell, Phenotype& phenotype, double dt ); 
 
+// set the tumor cell properties, then call the function 
+// to set up the tumor cells 
 void create_cell_types( void );
-void setup_tissue( void ); 
 
-// set up the BioFVM microenvironment 
-void setup_microenvironment( void ); 
+void setup_tissue(); 
 
-// custom pathology coloring function 
+// set up the microenvironment to include the immunostimulatory factor 
+void setup_microenvironment( void );  // done 
 
-std::vector<std::string> my_coloring_function( Cell* );
-
-// custom functions can go here 
-
-void phenotype_function( Cell* pCell, Phenotype& phenotype, double dt );
-void custom_function( Cell* pCell, Phenotype& phenotype , double dt );
-
-void contact_function( Cell* pMe, Phenotype& phenoMe , Cell* pOther, Phenotype& phenoOther , double dt ); 
-
-void custom_update_cell_velocity( Cell* pCell, Phenotype& phenotype, double dt);
+std::vector<std::string> heterogeneity_coloring_function( Cell* );
