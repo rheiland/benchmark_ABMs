@@ -1,5 +1,9 @@
 # benchmark_ABMs
 
+## NOTE: see [https://github.com/rheiland/benchmark_ABMs/tree/main/PhysiCell] for the April 2025 updates!
+
+<hr>
+
 This repository contains the PhysiCell code, configuration files, and input data needed for the https://permedcoe.eu/community-driven-benchmarking-hackathon/
 
 This README is accompanied by a publicly accessible google doc (https://docs.google.com/document/d/1WrESd-lrWHv2HPY5n0W-Hj2Jm67Srw4BkAR2noyR9I8/edit#) which captures part of the development and visualization process.
