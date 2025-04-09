@@ -40,6 +40,7 @@ out_dir = "./output_monolayer_Oct2024"
 #out_dir = "../PhysiCell/output_monolayer_pressure_set_behavior"
 out_dir = "./output_monolayer"
 t=[]
+num_cells=[]
 tumor_diam=[]
 
 fig, ax = plt.subplots()
@@ -70,7 +71,7 @@ for idx in range(0,max_frame+1, hr_delta):
     # print('time (hr)= ', current_time/60. )
     # print('time (day)= ', current_time/1440. )
     # print("# cells= ",cells_x.shape[0])
-    num_cells= cells_x.shape[0]
+    num_cells.append(cells_x.shape[0])
     diam = cells_x.max() - cells_x.min()
     # print("monolayer diam= ",diam)
 
@@ -82,6 +83,21 @@ for idx in range(0,max_frame+1, hr_delta):
 # ax.plot(t, tumor_diam,'k-')
 # ax.plot(t, tumor_diam, marker='x', linestyle='-', color='b')
 ax.plot(t, tumor_diam, linestyle='-', color='b')
+csv_file = "monolayer_t_diam.csv"
+with open(csv_file, 'w') as f:
+    for idx in range(len(t)):
+        # f.write(f'{tv[idx]},{xv[idx]}\n')
+        f.write(f'{t[idx]},{tumor_diam[idx]}\n')
+f.close()
+print("---> ",csv_file)
+
+csv_file = "monolayer_t_numcells.csv"
+with open(csv_file, 'w') as f:
+    for idx in range(len(t)):
+        # f.write(f'{tv[idx]},{xv[idx]}\n')
+        f.write(f'{t[idx]},{num_cells[idx]}\n')
+f.close()
+print("---> ",csv_file)
 
 t2 = []
 tumor_diam_pts = []
