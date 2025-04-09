@@ -203,18 +203,22 @@ void custom_function( Cell* pCell, Phenotype& phenotype , double dt )
 { 
     // static int contact_start_index = find_signal_index( "pressure" + cell_definitions_by_type[0]->name ); 
     // static int contact_start_index = find_signal_index( "pressure" + cell_definitions_by_type[0]->name ); 
-    double pressure = get_single_signal(pCell, "pressure");
+    // double pressure = get_single_signal(pCell, "pressure");
     // std::cout << "custom_function: t="<<PhysiCell_globals.current_time<<", ID= " << pCell->ID << ", pressure= " << pressure << std::endl;
     // std::cout << "        pCell->phenotype.cycle.data.exit_rate( 0 ) = " << pCell->phenotype.cycle.data.exit_rate( 0 ) << std::endl;
     // if (pressure > 3)
     // if (pressure > 2)
-    if (pressure > 2.5)
+    if (get_single_signal(pCell, "pressure") > 2.5)
     {
         pCell->phenotype.cycle.data.exit_rate( 0 ) = 0.0000001;
+        // set_single_behavior( pCell , "exit from cycle phase 3" , 0.0 );
+        // set_single_behavior( pCell , "exit from cycle phase 0" , 0000001 );
     }
     else
     {
         pCell->phenotype.cycle.data.exit_rate( 0 ) = 0.00238095;
+        // set_single_behavior( pCell , "exit from cycle phase 3" , 0.00238095 );
+        // set_single_behavior( pCell , "exit from cycle phase 0" , 0.00238095 );
     }
     return; 
 } 
